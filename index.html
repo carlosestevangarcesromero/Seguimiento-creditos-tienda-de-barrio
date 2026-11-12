@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuaderno de fiados</title>
+  <link rel="stylesheet" href="stylo.css">
+</head>
+<body>
+
+  <!-- Encabezado de la página -->
+  <header class="encabezado">
+    <div class="contenedor">
+      <p class="etiqueta">Mi tienda</p>
+      <h1>Cuaderno de fiados</h1>
+      <p class="subtitulo">
+        Anota quién te debe, qué se llevó y cuánto. La página te avisa cuando alguien se atrasa.
+      </p>
+    </div>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- Resumen general -->
+    <section class="resumen" aria-label="Resumen de fiados">
+      <article class="tarjeta-resumen">
+        <p class="resumen-titulo">Por cobrar</p>
+        <p class="resumen-valor" id="total-por-cobrar">$ 0</p>
+      </article>
+
+      <article class="tarjeta-resumen tarjeta-resumen--alerta">
+        <p class="resumen-titulo">Atrasado</p>
+        <p class="resumen-valor" id="total-atrasado">$ 0</p>
+      </article>
+
+      <article class="tarjeta-resumen">
+        <p class="resumen-titulo">Fiados pendientes</p>
+        <p class="resumen-valor" id="total-pendientes">0</p>
+      </article>
+    </section>
+
+    <div class="columnas">
+
+      <!-- Formulario para registrar un fiado -->
+      <section class="panel panel--formulario" aria-labelledby="titulo-formulario">
+        <h2 id="titulo-formulario">Nuevo fiado</h2>
+
+        <form id="formulario-credito" class="formulario" novalidate>
+          <div class="campo">
+            <label for="nombre">Nombre del cliente</label>
+            <input
+              id="nombre"
+              name="nombre"
+              type="text"
+              maxlength="60"
+              placeholder="Ej. María López"
+              autocomplete="off"
+              required
+            >
+            <p class="ayuda">
+              Si hay dos clientes con el mismo nombre, agrega el apellido o un apodo.
+            </p>
+          </div>
+
+          <div class="campo">
+            <label for="descripcion">¿Qué se llevó?</label>
+            <input
+              id="descripcion"
+              name="descripcion"
+              type="text"
+              maxlength="120"
+              placeholder="Ej. Pan, leche y huevos"
+              autocomplete="off"
+              required
+            >
+          </div>
+
+          <div class="campo">
+            <label for="monto">Valor del fiado (pesos)</label>
+            <input
+              id="monto"
+              name="monto"
+              type="number"
+              inputmode="numeric"
+              step="1"
+              min="1"
+              placeholder="Ej. 25000"
+              required
+            >
+            <p class="ayuda">Solo pesos enteros, sin decimales ni puntos.</p>
+          </div>
+
+          <div class="campo-fila">
+            <div class="campo">
+              <label for="fecha-credito">Fecha del fiado</label>
+              <input id="fecha-credito" name="fecha-credito" type="date" required>
+            </div>
+
+            <div class="campo">
+              <label for="fecha-limite">Fecha límite de pago</label>
+              <input id="fecha-limite" name="fecha-limite" type="date" required>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="nota">Nota (opcional)</label>
+            <input
+              id="nota"
+              name="nota"
+              type="text"
+              maxlength="120"
+              placeholder="Ej. Paga el viernes"
+              autocomplete="off"
+            >
+          </div>
+
+          <p class="mensaje-error" id="error-formulario" role="alert"></p>
+
+          <button type="submit" class="boton boton--primario boton--bloque">
+            Guardar fiado
+          </button>
+
+          <p class="ayuda">
+            La fecha límite aparece con 15 días de margen. Puedes cambiarla antes de guardar.
+          </p>
+        </form>
+      </section>
+
+      <!-- Lista de fiados registrados -->
+      <section class="panel" aria-labelledby="titulo-lista">
+        <div class="lista-encabezado">
+          <h2 id="titulo-lista">Fiados</h2>
+
+          <input
+            id="buscador"
+            class="buscador"
+            type="search"
+            placeholder="Buscar cliente o producto..."
+            aria-label="Buscar fiados por cliente o por lo que se llevó"
+          >
+        </div>
+
+        <div class="filtros" role="group" aria-label="Filtrar fiados">
+          <button type="button" class="filtro activo" data-filtro="todos" aria-pressed="true">Todos</button>
+          <button type="button" class="filtro" data-filtro="pendientes" aria-pressed="false">Pendientes</button>
+          <button type="button" class="filtro" data-filtro="atrasados" aria-pressed="false">Atrasados</button>
+          <button type="button" class="filtro" data-filtro="pagados" aria-pressed="false">Pagados</button>
+        </div>
+
+        <div id="lista-creditos" class="lista-creditos"></div>
+      </section>
+
+    </div>
+
+    <!-- Copia de seguridad -->
+    <section class="panel respaldo" aria-labelledby="titulo-respaldo">
+      <div class="respaldo-texto">
+        <h2 id="titulo-respaldo">Copia de seguridad</h2>
+        <p class="ayuda">
+          Descarga un archivo con todos tus fiados para guardarlo o pasarlo a otro celular.
+          También puedes restaurar una copia que hayas descargado antes.
+        </p>
+      </div>
+
+      <div class="respaldo-acciones">
+        <button type="button" class="boton boton--secundario" id="boton-exportar">
+          Descargar copia
+        </button>
+        <button type="button" class="boton boton--fantasma" id="boton-importar">
+          Restaurar copia
+        </button>
+        <input
+          type="file"
+          id="archivo-importar"
+          accept="application/json,.json"
+          class="etiqueta-oculta"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p>Los datos se guardan solo en este navegador. Si borras sus datos, se perderán: descarga una copia de vez en cuando.</p>
+    </div>
+  </footer>
+
+  <!-- Mensaje flotante de confirmación -->
+  <div id="aviso" class="aviso" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
