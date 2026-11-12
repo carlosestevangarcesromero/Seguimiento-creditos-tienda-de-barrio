@@ -1,0 +1,721 @@
+/* =========================================================
+   Cuaderno de fiados — hoja de estilos
+   ---------------------------------------------------------
+   1. Variables y base
+   2. Encabezado
+   3. Resumen
+   4. Columnas y paneles
+   5. Formulario
+   6. Botones
+   7. Lista de fiados
+   8. Colores de estado
+   9. Aviso flotante y pie
+   10. Diseño adaptable
+   ========================================================= */
+
+/* ---------- 1. Variables y base ---------- */
+:root {
+  --fondo: #f3f6fb;
+  --superficie: #ffffff;
+  --texto: #1f2a44;
+  --texto-suave: #68738c;
+  --borde: #e2e8f3;
+  --primario: #2f6fed;
+  --primario-oscuro: #2457c5;
+  --primario-suave: #eaf0ff;
+  --verde: #17855a;
+  --verde-suave: #e3f7ed;
+  --ambar: #a96a00;
+  --ambar-suave: #fdf1d8;
+  --rojo: #cf3f3f;
+  --rojo-suave: #fde9e9;
+  --rojo-fuerte: #a11d1d;
+  --sombra: 0 10px 28px rgba(31, 42, 68, 0.08);
+  --radio: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.contenedor {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+/* ---------- 2. Encabezado ---------- */
+.encabezado {
+  background: linear-gradient(135deg, #17306a 0%, #2f6fed 100%);
+  color: #ffffff;
+  padding: 40px 0 56px;
+}
+
+.etiqueta {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.encabezado h1 {
+  margin-top: 6px;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.15;
+}
+
+.subtitulo {
+  max-width: 560px;
+  margin-top: 8px;
+  opacity: 0.85;
+}
+
+/* ---------- 3. Resumen ---------- */
+.resumen {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: -32px;
+}
+
+.tarjeta-resumen {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 18px 22px;
+  box-shadow: var(--sombra);
+}
+
+.resumen-titulo {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}
+
+.resumen-valor {
+  margin-top: 6px;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.tarjeta-resumen--alerta .resumen-valor {
+  color: var(--rojo);
+}
+
+/* ---------- 4. Columnas y paneles ---------- */
+.columnas {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  margin: 28px 0 48px;
+}
+
+.panel {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 24px;
+  box-shadow: var(--sombra);
+}
+
+.panel h2 {
+  font-size: 18px;
+}
+
+/* ---------- 5. Formulario ---------- */
+.formulario {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.campo {
+  display: grid;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texto-suave);
+}
+
+.campo input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: #fbfcff;
+  color: inherit;
+  font: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+.campo input::placeholder {
+  color: #a2abc0;
+}
+
+.campo input:focus {
+  outline: none;
+  border-color: var(--primario);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.16);
+}
+
+.campo-fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.mensaje-error {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rojo);
+}
+
+.mensaje-error:empty {
+  display: none;
+}
+
+.ayuda {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--texto-suave);
+}
+
+/* ---------- 6. Botones ---------- */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 16px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.05s;
+}
+
+.boton:active {
+  transform: translateY(1px);
+}
+
+.boton:focus-visible {
+  outline: 3px solid rgba(47, 111, 237, 0.35);
+  outline-offset: 2px;
+}
+
+.boton--primario {
+  background: var(--primario);
+  color: #ffffff;
+}
+
+.boton--primario:hover {
+  background: var(--primario-oscuro);
+}
+
+.boton--secundario {
+  background: var(--primario-suave);
+  border-color: #d6e2ff;
+  color: var(--primario-oscuro);
+}
+
+.boton--secundario:hover {
+  background: #dde8ff;
+}
+
+.boton--peligro {
+  background: #ffffff;
+  border-color: #f3c9c9;
+  color: var(--rojo);
+}
+
+.boton--peligro:hover {
+  background: var(--rojo-suave);
+}
+
+.boton--fantasma {
+  background: transparent;
+  border-color: var(--borde);
+  color: var(--texto-suave);
+}
+
+.boton--fantasma:hover {
+  background: #f6f8fc;
+  color: var(--texto);
+}
+
+.boton--pequeno {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.boton--bloque {
+  width: 100%;
+}
+
+/* ---------- 7. Lista de fiados ---------- */
+.lista-encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.buscador {
+  width: 100%;
+  max-width: 240px;
+  padding: 9px 12px;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: #fbfcff;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+}
+
+.buscador:focus {
+  outline: none;
+  border-color: var(--primario);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.16);
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.filtro {
+  padding: 7px 14px;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  background: #f8faff;
+  color: var(--texto-suave);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.filtro:hover {
+  border-color: #c9d6f5;
+  color: var(--texto);
+}
+
+.filtro.activo {
+  background: var(--texto);
+  border-color: var(--texto);
+  color: #ffffff;
+}
+
+.lista-creditos {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.credito {
+  padding: 16px 18px;
+  border: 1px solid var(--borde);
+  border-left: 5px solid #cbd5e8;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.credito-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.credito-cliente {
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.credito-saldo {
+  margin-top: 10px;
+  font-size: 26px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.credito-total {
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
+.credito-fechas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
+.credito-fechas strong {
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.credito-nota {
+  margin-top: 10px;
+  padding-left: 10px;
+  border-left: 3px solid var(--borde);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--texto-suave);
+}
+
+.credito-alerta {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--rojo-suave);
+  color: var(--rojo-fuerte);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.credito-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+/* Formulario pequeño para registrar un abono */
+.form-abono {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f5f8ff;
+}
+
+.form-abono input {
+  flex: 1 1 140px;
+  min-width: 0;
+  padding: 9px 12px;
+  border: 1px solid var(--borde);
+  border-radius: 9px;
+  background: #ffffff;
+  color: inherit;
+  font: inherit;
+}
+
+.form-abono input:focus {
+  outline: none;
+  border-color: var(--primario);
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.16);
+}
+
+.etiqueta-oculta {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Mensaje cuando no hay fiados que mostrar */
+.vacio {
+  padding: 40px 20px;
+  border: 1px dashed var(--borde);
+  border-radius: 14px;
+  background: #fbfcff;
+  color: var(--texto-suave);
+  text-align: center;
+}
+
+.vacio strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 16px;
+  color: var(--texto);
+}
+
+/* Detalle del fiado, total por cliente e historial de abonos */
+.credito-descripcion {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.cliente-total {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--primario-suave);
+  color: var(--primario-oscuro);
+  font-size: 13px;
+}
+
+.historial {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.historial summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--primario-oscuro);
+}
+
+.historial-lista {
+  display: grid;
+  gap: 4px;
+  margin: 8px 0 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.historial-lista li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #f7f9fd;
+  color: var(--texto-suave);
+}
+
+.historial-lista strong {
+  color: var(--texto);
+}
+
+.historial-nota {
+  font-style: italic;
+}
+
+/* Formulario para editar un fiado */
+.form-edicion {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid #d6e2ff;
+  border-radius: 12px;
+  background: #f7faff;
+}
+
+.form-edicion .campo input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--borde);
+  border-radius: 9px;
+  background: #ffffff;
+  color: inherit;
+  font: inherit;
+}
+
+.form-edicion .campo input:focus {
+  outline: none;
+  border-color: var(--primario);
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.16);
+}
+
+.form-edicion-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Panel de copia de seguridad */
+.respaldo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.respaldo-texto {
+  flex: 1 1 320px;
+}
+
+.respaldo-texto h2 {
+  margin-bottom: 6px;
+}
+
+.respaldo-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- 8. Colores de estado ---------- */
+.credito--al-dia {
+  border-left-color: var(--verde);
+}
+
+.credito--por-vencer {
+  border-left-color: #e8a417;
+}
+
+.credito--atrasado {
+  border-left-color: var(--rojo);
+  background: #fffbfb;
+}
+
+.credito--muy-atrasado {
+  border-left-color: var(--rojo-fuerte);
+  background: #fff7f7;
+}
+
+.credito--pagado {
+  border-left-color: #9aa6bd;
+  background: #fafbfd;
+}
+
+.estado {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.estado--al-dia {
+  background: var(--verde-suave);
+  color: var(--verde);
+}
+
+.estado--por-vencer {
+  background: var(--ambar-suave);
+  color: var(--ambar);
+}
+
+.estado--atrasado {
+  background: var(--rojo-suave);
+  color: var(--rojo);
+}
+
+.estado--muy-atrasado {
+  background: var(--rojo-fuerte);
+  color: #ffffff;
+}
+
+.estado--pagado {
+  background: #eef1f6;
+  color: #5b657c;
+}
+
+/* ---------- 9. Aviso flotante y pie ---------- */
+.aviso {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 10;
+  max-width: calc(100% - 32px);
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--texto);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(31, 42, 68, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 16px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.aviso--visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.aviso--error {
+  background: var(--rojo-fuerte);
+}
+
+.pie {
+  padding: 20px 0 32px;
+  border-top: 1px solid var(--borde);
+  color: var(--texto-suave);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ---------- 10. Diseño adaptable ---------- */
+@media (min-width: 901px) {
+  .panel--formulario {
+    position: sticky;
+    top: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .columnas {
+    grid-template-columns: 1fr;
+  }
+
+  .resumen {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .encabezado {
+    padding: 28px 0 44px;
+  }
+
+  .resumen {
+    grid-template-columns: 1fr;
+    margin-top: -20px;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+
+  .campo-fila {
+    grid-template-columns: 1fr;
+  }
+
+  .buscador {
+    max-width: none;
+  }
+
+  .credito-saldo {
+    font-size: 22px;
+  }
+}
